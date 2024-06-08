@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { db, auth } from '../../src/backend/Firebase';
 import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "firebase/firestore";
 import { signOut } from "firebase/auth";
+import Message from './Message';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -38,27 +39,26 @@ const Chat = () => {
   return (
     <div className="flex flex-col h-screen bottom-0 sticky bg-transparent bg-gradient-to-r from-indigo-400 to-sky-700">
       <div className="flex-1 overflow-y-scroll p-4">
-        {messages.map(({ id, text, displayName, photoURL }) => (
-          <div key={id} className={`chat ${auth.currentUser.uid === id ? 'chat-end' : 'chat-start'} mb-4`}>
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img alt={`${displayName}'s avatar`} src={photoURL} />
-              </div>
-            </div>
-            <div className="chat-bubble">
-              <div className="font-bold">{displayName}</div>
-              <div>{text}</div>
-            </div>
-          </div>
+        {messages.map(({ id, text, displayName, photoURL, uid, timestamp }) => (
+          <Message
+            key={id}
+            id={id}
+            userName={displayName}
+            text={text}
+            imageSource={photoURL}
+            isOfUser={auth.currentUser.uid === uid}
+            createdAt={timestamp?.toDate()}
+          />
         ))}
       </div>
-      <form onSubmit={sendMessage} className="bg-slate-400 rounded-xl p-4 flex">
+      <form onSubmit={sendMessage} className="bg-sky-400 rounded-xl p-4 flex">
         <input
           value={input}
+          placeholder='Tulis pesan...'
           onChange={(e) => setInput(e.target.value)}
           className="flex-1 p-2 rounded-2xl border border-gray-400"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded ml-2">Send</button>
+        <button type="submit" className="bg-blue-500 text-white p-2 rounded-xl ml-2 font-bold">Kirim</button>
       </form>
     </div>
   );
