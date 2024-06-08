@@ -37,13 +37,12 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col h-screen bottom-0 sticky bg-transparent bg-gradient-to-r from-indigo-400 to-sky-700">
-
       <div className="flex-1 overflow-y-scroll p-4">
         {messages.map(({ id, text, displayName, photoURL }) => (
-          <div key={id} className="chat chat-start mb-4">
+          <div key={id} className={`chat ${auth.currentUser.uid === id ? 'chat-end' : 'chat-start'} mb-4`}>
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
-                <img alt="User Avatar" src={auth.currentUser?.photoURL || 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg'} />
+                <img alt={`${displayName}'s avatar`} src={photoURL} />
               </div>
             </div>
             <div className="chat-bubble">
@@ -57,7 +56,7 @@ const Chat = () => {
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 p-2 rounded-2xl border border-gray-400 bottom-0 sticky "
+          className="flex-1 p-2 rounded-2xl border border-gray-400"
         />
         <button type="submit" className="bg-blue-500 text-white p-2 rounded ml-2">Send</button>
       </form>
