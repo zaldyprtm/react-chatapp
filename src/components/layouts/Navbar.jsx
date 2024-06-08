@@ -13,7 +13,7 @@ const Navbar = () => {
 
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 top-0 sticky z-10 mb-28">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">WEB-CHAT</a>
       </div>

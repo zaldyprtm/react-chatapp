@@ -36,7 +36,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen bottom-0 sticky bg-transparent bg-gradient-to-r from-indigo-400 to-sky-700">
 
       <div className="flex-1 overflow-y-scroll p-4">
         {messages.map(({ id, text, displayName, photoURL }) => (
@@ -53,11 +53,11 @@ const Chat = () => {
           </div>
         ))}
       </div>
-      <form onSubmit={sendMessage} className="bg-gray-200 p-4 flex">
+      <form onSubmit={sendMessage} className="bg-slate-400 rounded-xl p-4 flex">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 p-2 rounded border border-gray-400"
+          className="flex-1 p-2 rounded-2xl border border-gray-400 bottom-0 sticky "
         />
         <button type="submit" className="bg-blue-500 text-white p-2 rounded ml-2">Send</button>
       </form>
