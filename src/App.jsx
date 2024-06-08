@@ -5,7 +5,8 @@ import Login from './components/Login';
 import Chat from './components/Chat';
 import Navbar from './components/layouts/Navbar';
 import "./App.css";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Hello from './components/layouts/Hello';
 
 const App = () => {
