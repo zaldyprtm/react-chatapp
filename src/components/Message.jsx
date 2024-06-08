@@ -37,9 +37,13 @@ const notify = () => toast.success("Pesan dihapus");
         </div>
         <p className="mt-2">{text}</p>
       </div>
+      {/* toaster notify */}
+      <div className='mt-5'>
       <Toaster 
-      position='top-center'
-      /> {/* Menambahkan Toaster untuk menampilkan notifikasi */}
+      position='top-right'
+      
+      /> 
+      </div>
     </>
   );
 };

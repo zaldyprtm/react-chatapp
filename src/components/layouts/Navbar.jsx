@@ -1,11 +1,15 @@
 import React from 'react';
 import { auth } from '../../backend/Firebase'; // Pastikan jalur impor sesuai dengan struktur proyek Anda
 import { signOut } from "firebase/auth";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Navbar = () => {
   const handleLogout = () => {
+    // Implementasi fungsi logout
+    toast.success("Logout Berhasil");
     signOut(auth).catch((error) => {
       console.error("Error signing out: ", error);
+      toast.error("Gagal keluar");
     });
   };
 
