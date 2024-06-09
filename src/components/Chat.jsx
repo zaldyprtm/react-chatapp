@@ -3,6 +3,7 @@ import { db, auth } from '../../src/backend/Firebase';
 import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import Message from './Message';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -25,6 +26,12 @@ const Chat = () => {
         displayName: auth.currentUser.displayName,
         photoURL: auth.currentUser.photoURL || 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg', // Default photoURL if not available
         timestamp: serverTimestamp()
+      });
+      toast.success("Pesan terkirim!", {
+        position: "bottom-right",
+        duration: 3000,
+        className: "bg-blue-500 text-white font-semibold relative -top-36"
+
       });
       setInput("");
     }

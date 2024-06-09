@@ -3,7 +3,7 @@ import { TypeAnimation } from 'react-type-animation';
 const Hello = () => {
   return (
     <>
-      <div className="mt-20 mx-auto w-80">
+      <div className="mt-20 mx-auto w-80 md:w-full md:mx-auto flex justify-center items-center">
         <TypeAnimation
           className="text-3xl text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500"
           sequence={[
