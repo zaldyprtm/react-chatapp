@@ -17,7 +17,8 @@ const AdminLogin = ({ onAdminLogin }) => {
       try {
         await signInWithEmailAndPassword(auth, 'admin@example.com', 'adminpassword');
         onAdminLogin('admin@example.com');
-        toast.success('Login berhasil!');
+        toast.success('Login berhasil!, Selamat Datang Admin!!');
+        navigate('/chat');
       } catch (error) {
         toast.error('Login gagal. Periksa email dan password Anda.');
         console.error('Error logging in: ', error);
@@ -28,12 +29,12 @@ const AdminLogin = ({ onAdminLogin }) => {
   };
 
   const handleBack = () => { 
-  navigate('/');
+  navigate('/')
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-800">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-sm">
+    <div className="min-h-screen flex items-center justify-center bg-slate-800 ">
+      <div className="bg-slate-700 p-8 rounded-xl shadow-md w-full max-w-sm mx-auto mt-20 placeholder:text-white">
         <h2 className="text-2xl font-bold text-black mb-6 text-center">Admin Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -43,6 +44,7 @@ const AdminLogin = ({ onAdminLogin }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-2 border rounded"
+              placeholder='username'
               required
             />
           </div>
@@ -54,6 +56,7 @@ const AdminLogin = ({ onAdminLogin }) => {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-2 border rounded"
               required
+              placeholder='password'
             />
           </div>
           <button

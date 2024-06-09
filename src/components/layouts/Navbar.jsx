@@ -8,30 +8,36 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    toast.success("Logout Berhasil");
-    signOut(auth).catch((error) => {
-      console.error("Error signing out: ", error);
-      toast.error("Gagal keluar");
-    });
+    signOut(auth)
+      .then(() => {
+        toast.success("Logout Berhasil");
+        navigate('/');
+      })
+      .catch((error) => {
+        console.error("Error signing out: ", error);
+        toast.error("Gagal keluar");
+      });
   };
 
   const handleAdmin = () => {
     navigate('/admin'); // Mengarahkan ke halaman login admin
-  }
+  };
+
   const handleMenu = () => {
     navigate('/'); // Mengarahkan ke halaman awal
-    
-    
-  }
+  };
 
   const defaultPhotoURL = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 14a4 4 0 100-8 4 4 0 000 8z'/%3E%3Cpath d='M23 22a1 1 0 01-1 1h-4a1 1 0 010-2h2.59l-3.3-3.3a8 8 0 10-11.31 0L2.41 15H5a1 1 0 010 2H1a1 1 0 01-1-1V8a1 1 0 011-1h4a1 1 0 010 2H2v6.59l3.3-3.3a8 8 0 0111.31 0L15 17.59V14a1 1 0 012 0v3.59l3.3-3.3a8 8 0 0111.31 0L23 18.41V21a1 1 0 01-1 1z'/%3E%3C/svg%3E";
 
   return (
     <div className="navbar bg-base-100 top-0 sticky z-10 mb-28 shadow-xl">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500"
-        onClick={handleMenu}
-        >WEB-CHAT</a>
+        <a
+          className="btn btn-ghost text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500"
+          onClick={handleMenu}
+        >
+          WEB-CHAT
+        </a>
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">
@@ -69,7 +75,7 @@ const Navbar = () => {
                 </div>
                 <div className='mx-auto mt-2'>
                   <li>
-                    <a onClick={handleAdmin}> 
+                    <a onClick={handleAdmin}>
                       Admin
                     </a>
                   </li>

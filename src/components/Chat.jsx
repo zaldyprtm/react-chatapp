@@ -24,14 +24,14 @@ const Chat = () => {
         text: input,
         uid: auth.currentUser.uid,
         displayName: auth.currentUser.displayName,
-        photoURL: auth.currentUser.photoURL || 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg', // Default photoURL if not available
-        timestamp: serverTimestamp()
+        photoURL: auth.currentUser.photoURL || 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+        timestamp: serverTimestamp(),
+        isAdmin: auth.currentUser.email === 'admin@example.com'  // Tambahkan status isAdmin
       });
       toast.success("Pesan terkirim!", {
         position: "bottom-right",
         duration: 3000,
         className: "bg-blue-500 text-white font-semibold relative -top-36"
-
       });
       setInput("");
     }
@@ -46,7 +46,7 @@ const Chat = () => {
   return (
     <div className="flex flex-col h-screen bottom-0 sticky bg-transparent bg-gradient-to-r from-indigo-400 to-sky-700">
       <div className="flex-1 overflow-y-scroll p-4">
-        {messages.map(({ id, text, displayName, photoURL, uid, timestamp }) => (
+        {messages.map(({ id, text, displayName, photoURL, uid, timestamp, isAdmin }) => (
           <Message
             key={id}
             id={id}
@@ -55,6 +55,7 @@ const Chat = () => {
             imageSource={photoURL}
             isOfUser={auth.currentUser.uid === uid}
             createdAt={timestamp?.toDate()}
+            isAdmin={isAdmin}  // Pastikan status isAdmin diteruskan
           />
         ))}
       </div>
@@ -67,6 +68,7 @@ const Chat = () => {
         />
         <button type="submit" className="bg-blue-500 text-white p-2 rounded-xl ml-2 font-bold">Kirim</button>
       </form>
+ 
     </div>
   );
 };
