@@ -36,7 +36,7 @@ const Navbar = () => {
           className="btn btn-ghost text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500"
           onClick={handleMenu}
         >
-          WEB-CHAT
+          Chattan Kuys
         </a>
       </div>
       <div className="flex-none">

@@ -31,7 +31,7 @@ const Message = ({ id, userName, text, imageSource, isOfUser, createdAt, isAdmin
             <p className="font-bold">{userName}{isAdmin && ' (Admin)'}</p>
             <p className="text-xs text-slate-900 font-semibolds">{createdAt ? new Date(createdAt).toLocaleString() : ''}</p>
           </div>
-          {(isOfUser || isAdmin) && (
+          {(isOfUser || auth.currentUser.email === 'admin@example.com') && (
             <button
               className="ml-2 bg-red-500 text-white text-xs p-1 rounded"
               onClick={handleDelete}

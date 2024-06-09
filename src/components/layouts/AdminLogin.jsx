@@ -33,12 +33,12 @@ const AdminLogin = ({ onAdminLogin }) => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-800 ">
-      <div className="bg-slate-700 p-8 rounded-xl shadow-md w-full max-w-sm mx-auto mt-20 placeholder:text-white">
-        <h2 className="text-2xl font-bold text-black mb-6 text-center">Admin Login</h2>
+    <div className="min-h-screen mb-20 flex items-center justify-center bg-slate-800 ">
+      <div className="  bg-gradient-to-r from-indigo-500 to-violet-900 p-8 rounded-xl shadow-xl w-80 md:w-96 z-30  max-w-sm mx-auto mt-32 placeholder:text-white mb-20">
+        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-sky-700 mb-6 mt-40 text-center">Admin Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700">Username</label>
+            <label className="block text-white mb-2">Username</label>
             <input
               type="text"
               value={email}
@@ -49,7 +49,7 @@ const AdminLogin = ({ onAdminLogin }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Password</label>
+            <label className="block text-white mb-2">Password</label>
             <input
               type="password"
               value={password}

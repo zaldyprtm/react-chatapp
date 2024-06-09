@@ -34,13 +34,15 @@ const App = () => {
         <div>
           <Navbar />
         </div>
-
+          <div className='mt-20'>
         <ToastContainer />
+
+          </div>
 
         {/* Menampilkan Hello hanya jika user belum login */}
         {!isLoggedIn && <Hello />}
 
-        <div className='-mt-56'>
+        <div className='-mt-60'>
           <Routes>
             <Route path="/admin" element={<AdminLogin onAdminLogin={handleAdminLogin} />} />
             <Route path="/chat" element={user || isLoggedIn ? <Chat /> : <Login />} />
