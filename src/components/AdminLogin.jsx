@@ -10,7 +10,8 @@ const AdminLogin = ({ onAdminLogin }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    navigate('/chat');
 
     if (email === 'admin' && password === 'admin') {
       try {
@@ -59,6 +60,7 @@ const AdminLogin = ({ onAdminLogin }) => {
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mb-4"
+            
           >
             Login
           </button>
