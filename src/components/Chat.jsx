@@ -44,7 +44,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bottom-0 sticky bg-transparent bg-gradient-to-r from-indigo-400 to-sky-700">
+    <div className="flex flex-col h-screen bottom-10 mt-20 sticky bg-transparent bg-gradient-to-r from-indigo-400 to-sky-700">
       <div className="flex-1 overflow-y-scroll p-4">
         {messages.map(({ id, text, displayName, photoURL, uid, timestamp, isAdmin }) => (
           <Message

@@ -1,15 +1,16 @@
-import React from 'react';
+import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from './backend/Firebase';
-import Login from './components/Login';
-import Chat from './components/Chat';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/layouts/Navbar';
-import AdminLogin from './components/layouts/AdminLogin';
+import { auth } from "./backend/Firebase";
+import Login from "./components/Login";
+import Chat from "./components/Chat";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/layouts/Navbar";
+import AdminLogin from "./components/layouts/AdminLogin";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Hello from './components/layouts/Hello';
+import Hello from "./components/layouts/Hello";
+import Footer from "./components/layouts/Footer";
 
 const App = () => {
   const [user] = useAuthState(auth);
@@ -23,7 +24,7 @@ const App = () => {
   }, [user]);
 
   const handleAdminLogin = (admin) => {
-    if (admin === 'admin@example.com') {
+    if (admin === "admin@example.com") {
       setIsLoggedIn(true);
     }
   };
@@ -34,20 +35,27 @@ const App = () => {
         <div>
           <Navbar />
         </div>
-          <div className='mt-20'>
-        <ToastContainer />
-
-          </div>
+        <div className="mt-20">
+          <ToastContainer />
+        </div>
 
         {/* Menampilkan Hello hanya jika user belum login */}
         {!isLoggedIn && <Hello />}
-
-        <div className='-mt-60'>
+        <div className="-mt-60">
           <Routes>
-            <Route path="/admin" element={<AdminLogin onAdminLogin={handleAdminLogin} />} />
-            <Route path="/chat" element={user || isLoggedIn ? <Chat /> : <Login />} />
+            <Route
+              path="/admin"
+              element={<AdminLogin onAdminLogin={handleAdminLogin} />}
+            />
+            <Route
+              path="/chat"
+              element={user || isLoggedIn ? <Chat /> : <Login />}
+            />
             <Route path="/" element={user ? <Chat /> : <Login />} />
           </Routes>
+          {!isLoggedIn ? <Footer /> : <div className="mx-auto mt-4 font-bold text-center">
+            <span>MUZALPRA WEB-CHAT</span>
+            </div>}
         </div>
       </Router>
     </>

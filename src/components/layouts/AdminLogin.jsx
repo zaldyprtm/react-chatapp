@@ -34,8 +34,8 @@ const AdminLogin = ({ onAdminLogin }) => {
 
   return (
     <div className="min-h-screen mb-20 flex items-center justify-center bg-slate-800 ">
-      <div className="  bg-gradient-to-r from-indigo-500 to-violet-900 p-8 rounded-xl shadow-xl w-80 md:w-96 z-30  max-w-sm mx-auto mt-32 placeholder:text-white mb-20">
-        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-sky-700 mb-6 mt-40 text-center">Admin Login</h2>
+      <div className="  bg-gradient-to-r from-indigo-500 to-violet-900 p-8 rounded-xl shadow-xl w-80 md:w-96 z-30  max-w-sm mx-auto mt-48 placeholder:text-white mb-20">
+        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-sky-700 mb-6 mt-10 text-center">Admin Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-white mb-2">Username</label>
