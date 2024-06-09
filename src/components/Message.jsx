@@ -24,9 +24,9 @@ const Message = ({ id, userName, text, imageSource, isOfUser, createdAt, isAdmin
 
   return (
     <>
-      <div className={`message ${isOfUser ? 'chat-end' : 'chat-start'} p-2 m-2 rounded-lg shadow-xl bg-sky-300 text-black mb-5`}>
+      <div className={`message ${isOfUser ? 'chat-end' : 'chat-start'} p-2 m-2 rounded-lg shadow-xl bg-sky-300 text-black mb-5 hover:bg-sky-500 transition duration-300`}>
         <div className="flex items-center space-x-2">
-          <img className="w-10 h-10 rounded-full" src={imageSource} alt={`${userName}'s avatar`} />
+          <img className="w-10 h-10 rounded-full hover:scale-125 transition duration-300" src={imageSource} alt={`${userName}'s avatar`} />
           <div>
             <p className="font-bold">{userName}{isAdmin && ' (Admin)'}</p>
             <p className="text-xs text-slate-900 font-semibolds">{createdAt ? new Date(createdAt).toLocaleString() : ''}</p>

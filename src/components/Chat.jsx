@@ -64,7 +64,7 @@ const Chat = () => {
           value={input}
           placeholder='Tulis pesan...'
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 p-2 rounded-2xl border border-gray-400"
+          className="flex-1 p-2 rounded-2xl border border-gray-400 bg-slate-100 text-black"
         />
         <button type="submit" className="bg-blue-500 text-white p-2 rounded-xl ml-2 font-bold">Kirim</button>
       </form>
