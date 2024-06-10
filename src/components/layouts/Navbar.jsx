@@ -27,7 +27,7 @@ const Navbar = () => {
     navigate('/'); // Mengarahkan ke halaman awal
   };
 
-  const defaultPhotoURL = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 14a4 4 0 100-8 4 4 0 000 8z'/%3E%3Cpath d='M23 22a1 1 0 01-1 1h-4a1 1 0 010-2h2.59l-3.3-3.3a8 8 0 10-11.31 0L2.41 15H5a1 1 0 010 2H1a1 1 0 01-1-1V8a1 1 0 011-1h4a1 1 0 010 2H2v6.59l3.3-3.3a8 8 0 0111.31 0L15 17.59V14a1 1 0 012 0v3.59l3.3-3.3a8 8 0 0111.31 0L23 18.41V21a1 1 0 01-1 1z'/%3E%3C/svg%3E";
+  const defaultPhotoURL = "https://w7.pngwing.com/pngs/306/70/png-transparent-computer-icons-management-admin-silhouette-black-and-white-neck-thumbnail.png";
 
   return (
     <div className="navbar bg-base-100 top-0 sticky z-10 mb-28 shadow-xl">

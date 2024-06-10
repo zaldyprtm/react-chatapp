@@ -1,39 +1,83 @@
 import React, { useEffect, useState } from 'react';
-import { db, auth } from '../../src/backend/Firebase';
+import { db, auth, storage } from '../../src/backend/Firebase';
 import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "firebase/firestore";
 import { signOut } from "firebase/auth";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Message from './Message';
 import toast, { Toaster } from 'react-hot-toast';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
-    const q = query(collection(db, "messages"), orderBy("timestamp"));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      setMessages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-    });
-    return () => unsubscribe();
-  }, []);
+    if (auth.currentUser) {
+      const q = query(collection(db, "messages"), orderBy("timestamp"));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        setMessages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      });
+      return () => unsubscribe();
+    } else {
+      toast.error("Anda harus login untuk mengakses pesan!", {
+        position: "bottom-right",
+        duration: 3000,
+        className: "bg-red-500 text-white font-semibold"
+      });
+    }
+  }, [auth.currentUser]);
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    if (input.trim()) {
+    if (!auth.currentUser) {
+      toast.error("Anda harus login terlebih dahulu untuk mengirim pesan!", {
+        position: "bottom-right",
+        duration: 3000,
+        className: "bg-red-500 text-white font-semibold"
+      });
+      return;
+    }
+    if (input.trim() || image) {
+      let imageUrl = null;
+      if (image) {
+        try {
+          const imageRef = ref(storage, `images/${image.name}`);
+          await uploadBytes(imageRef, image);
+          imageUrl = await getDownloadURL(imageRef);
+        } catch (error) {
+          console.error("Error uploading image: ", error);
+          toast.error("Gagal mengunggah gambar. Pastikan Anda memiliki izin yang benar.", {
+            position: "bottom-right",
+            duration: 3000,
+            className: "bg-red-500 text-white font-semibold"
+          });
+          return;
+        }
+      }
+
       await addDoc(collection(db, "messages"), {
         text: input,
         uid: auth.currentUser.uid,
         displayName: auth.currentUser.displayName,
-        photoURL: auth.currentUser.photoURL || 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+        photoURL: auth.currentUser.photoURL || 'https://w7.pngwing.com/pngs/306/70/png-transparent-computer-icons-management-admin-silhouette-black-and-white-neck-thumbnail.png',
         timestamp: serverTimestamp(),
-        isAdmin: auth.currentUser.email === 'admin@example.com'  // Tambahkan status isAdmin
+        isAdmin: auth.currentUser.email === 'admin@example.com',
+        imageUrl: imageUrl || null
       });
+
       toast.success("Pesan terkirim!", {
         position: "bottom-right",
         duration: 3000,
-        className: "bg-blue-500 text-white font-semibold relative -top-36"
+        className: "bg-blue-500 text-white font-semibold"
       });
       setInput("");
+      setImage(null);
     }
   };
 
@@ -46,7 +90,7 @@ const Chat = () => {
   return (
     <div className="flex flex-col h-screen bottom-10 mt-20 sticky bg-transparent bg-gradient-to-r from-indigo-400 to-sky-700">
       <div className="flex-1 overflow-y-scroll p-4">
-        {messages.map(({ id, text, displayName, photoURL, uid, timestamp, isAdmin }) => (
+        {messages.map(({ id, text, displayName, photoURL, uid, timestamp, isAdmin, imageUrl }) => (
           <Message
             key={id}
             id={id}
@@ -55,20 +99,32 @@ const Chat = () => {
             imageSource={photoURL}
             isOfUser={auth.currentUser.uid === uid}
             createdAt={timestamp?.toDate()}
-            isAdmin={isAdmin}  // Pastikan status isAdmin diteruskan
+            isAdmin={isAdmin}
+            imageUrl={imageUrl}
           />
         ))}
       </div>
-      <form onSubmit={sendMessage} className="bg-sky-400 rounded-xl p-4 flex">
+      <form onSubmit={sendMessage} className="flex items-center p-2 bg-slate-200 rounded-xl w-96 mx-auto md:w-full border-t border-gray-300">
+        <input
+          type="file"
+          onChange={handleImageChange}
+          className="hidden"
+          id="fileInput"
+        />
+        <label htmlFor="fileInput" className="cursor-pointer p-2">
+          <img src="https://img.icons8.com/ios-filled/50/000000/attach.png" alt="Attach" className="w-6 h-6"/>
+        </label>
         <input
           value={input}
-          placeholder='Tulis pesan...'
+          placeholder="Tulis pesan..."
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 p-2 rounded-2xl border border-gray-400 bg-slate-100 text-black"
+          className="flex-1 p-2 mx-2 border border-gray-300 rounded-lg outline-none"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded-xl ml-2 font-bold">Kirim</button>
+        <button type="submit" className="p-2 text-white bg-tansparent rounded-full">
+          <img src="https://static-00.iconduck.com/assets.00/send-icon-2048x1863-u8j8xnb6.png" alt="Send" className="w-6 h-6"/>
+        </button>
       </form>
- 
+      <Toaster />
     </div>
   );
 };

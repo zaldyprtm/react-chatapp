@@ -3,7 +3,7 @@ import { auth, db } from '../../src/backend/Firebase';
 import { doc, deleteDoc } from "firebase/firestore";
 import toast, { Toaster } from 'react-hot-toast';
 
-const Message = ({ id, userName, text, imageSource, isOfUser, createdAt, isAdmin }) => {
+const Message = ({ id, userName, text, imageSource, isOfUser, createdAt, isAdmin, imageUrl }) => {
   const handleDelete = async () => {
     try {
       await deleteDoc(doc(db, "messages", id));
@@ -28,7 +28,7 @@ const Message = ({ id, userName, text, imageSource, isOfUser, createdAt, isAdmin
         <div className="flex items-center space-x-2">
           <img className="w-10 h-10 rounded-full hover:scale-125 transition duration-300" src={imageSource} alt={`${userName}'s avatar`} />
           <div>
-            <p className="font-bold">{userName}{isAdmin && ' (Admin)'}</p>
+            <p className="font-bold">{userName} {isAdmin && <span className="text-red-500">(Admin)</span>}</p>
             <p className="text-xs text-slate-900 font-semibolds">{createdAt ? new Date(createdAt).toLocaleString() : ''}</p>
           </div>
           {(isOfUser || auth.currentUser.email === 'admin@example.com') && (
@@ -41,6 +41,7 @@ const Message = ({ id, userName, text, imageSource, isOfUser, createdAt, isAdmin
           )}
         </div>
         <p className="mt-2">{text}</p>
+        {imageUrl && <img src={imageUrl} alt="Message" className="mt-2 rounded-lg max-h-60" />}
       </div>
       <Toaster />
     </>
