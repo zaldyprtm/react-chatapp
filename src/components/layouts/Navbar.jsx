@@ -1,7 +1,7 @@
 import React from 'react';
 import { auth } from '../../backend/Firebase';
 import { signOut } from "firebase/auth";
-import toast from 'react-hot-toast';
+import toast, { ToastBar } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
@@ -10,8 +10,7 @@ const Navbar = () => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        toast.success("Logout Berhasil");
-        
+       toast.success("Keluar", { duration: 2000 });
         navigate('/');
         window.location.reload();
       })
@@ -62,7 +61,7 @@ const Navbar = () => {
             {auth.currentUser ? (
               <>
                 <li>
-                  <a className="justify-between">
+                  <a className="justify-between font-bold">
                     {auth.currentUser.displayName}
                   </a>
                 </li>

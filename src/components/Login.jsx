@@ -1,13 +1,18 @@
 import React from 'react';
 import { auth, provider } from '../backend/Firebase';
 import { signInWithPopup } from "firebase/auth";
-import toast, { Toaster } from 'react-hot-toast';
+import { toast } from 'react-toastify';
+
 
 const Login = () => {
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        toast.success(`Selamat datang, ${result.user.displayName}`);
+        toast.success(`Selamat datang, ${result.user.displayName}`, {
+          duration: 3000
+        });
+        
+    
         console.log(result.user.displayName);
       })
       .catch((error) => {
@@ -21,12 +26,12 @@ const Login = () => {
       <div className="flex justify-center items-center h-screen">
         <button onClick={signInWithGoogle} className="bg-blue-500 text-white p-4 rounded">Sign in with Google</button>
       </div>
-      <div>
+      {/* <div>
         <Toaster
           position="top-right"
           reverseOrder={false}
         />
-      </div>
+      </div> */}
     </>
   );
 };
