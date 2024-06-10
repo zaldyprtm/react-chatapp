@@ -11,7 +11,9 @@ const Navbar = () => {
     signOut(auth)
       .then(() => {
         toast.success("Logout Berhasil");
+        
         navigate('/');
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error signing out: ", error);

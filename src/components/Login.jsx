@@ -8,6 +8,7 @@ const Login = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         toast.success(`Selamat datang, ${result.user.displayName}`);
+        console.log(result.user.displayName);
       })
       .catch((error) => {
         toast.error("Gagal masuk");
