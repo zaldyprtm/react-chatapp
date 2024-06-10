@@ -14,6 +14,7 @@ import Footer from "./components/layouts/Footer";
 
 const App = () => {
   const [user] = useAuthState(auth);
+  const [admin, setAdmin] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   // Menjalankan logika setelah user login
@@ -27,6 +28,12 @@ const App = () => {
     if (admin === "admin@example.com") {
       setIsLoggedIn(true);
     }
+  };
+
+
+
+  const loginAdmin = () => {
+    window.location.href = "/admin";
   };
 
   return (
@@ -53,6 +60,10 @@ const App = () => {
             />
             <Route path="/" element={user ? <Chat /> : <Login />} />
           </Routes>
+          <div className="divider -mt-56 w-80 mx-auto">OR</div>
+    {setAdmin && <button className="btn btn-circle btn-wide mx-auto mt-1 font-bold text-center flex items-center" onClick={loginAdmin}>Login Admin</button>}
+      <div>
+      </div>
           {!isLoggedIn ? <Footer /> : <div className="mx-auto mt-4 font-bold text-center">
             <span>MUZALPRA WEB-CHAT</span>
             </div>}

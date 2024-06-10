@@ -26,6 +26,7 @@ const Login = () => {
       <div className="flex justify-center items-center h-screen">
         <button onClick={signInWithGoogle} className="bg-blue-500 text-white p-4 rounded">Sign in with Google</button>
       </div>
+
       {/* <div>
         <Toaster
           position="top-right"
